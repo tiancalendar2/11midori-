@@ -1,0 +1,141 @@
+<html> <body> <title> Tian Midori page </title>
+
+
+<table style="width:100%">
+
+  
+<tr>  
+<td><input type="checkbox" id="a" name="a"> <textarea id="notepad" placeholder=""> </textarea></td>
+<td><input type="checkbox" id="a" name="a"> <textarea id="notepad" placeholder=""> </textarea></td> 
+<td><input type="checkbox" id="a" name="a"> <textarea id="notepad" placeholder=""> </textarea></td>
+<td><input type="checkbox" id="a" name="a"> <textarea id="notepad" placeholder=""> </textarea></td> 
+</tr>
+<tr>   
+<td><input type="checkbox" id="a" name="a"> <textarea id="notepad" placeholder=""> </textarea></td>
+<td><input type="checkbox" id="a" name="a"> <textarea id="notepad" placeholder=""> </textarea></td> 
+<td><input type="checkbox" id="a" name="a"> <textarea id="notepad" placeholder=""> </textarea></td>
+<td><input type="checkbox" id="a" name="a"> <textarea id="notepad" placeholder=""> </textarea></td> 
+</tr>
+<tr>   
+<td><input type="checkbox" id="a" name="a"> <textarea id="notepad" placeholder=""> </textarea></td>
+<td><input type="checkbox" id="a" name="a"> <textarea id="notepad" placeholder=""> </textarea></td> 
+<td><input type="checkbox" id="a" name="a"> <textarea id="notepad" placeholder=""> </textarea></td>
+<td><input type="checkbox" id="a" name="a"> <textarea id="notepad" placeholder=""> </textarea></td> 
+</tr>
+<tr>   
+<td><input type="checkbox" id="a" name="a"> <textarea id="notepad" placeholder=""> </textarea></td>
+<td><input type="checkbox" id="a" name="a"> <textarea id="notepad" placeholder=""> </textarea></td> 
+<td><input type="checkbox" id="a" name="a"> <textarea id="notepad" placeholder=""> </textarea></td>
+<td><input type="checkbox" id="a" name="a"> <textarea id="notepad" placeholder=""> </textarea></td> 
+</tr>
+
+
+
+
+
+
+
+
+
+<style>
+table, th, td {
+  border: 1px dotted;
+}
+
+body {
+   /* diameter of the circle */
+   --d: 2px; 
+   
+   background : radial-gradient(
+     circle at 
+        var(--d) 
+        var(--d), 
+        
+     #d3d3d3 calc(var(--d) - 1px), 
+     #0000 var(--d)
+   ) 
+   0 0 / 33px 33px;
+}
+
+textarea {
+  width: 320px;
+  height: 92px;
+  font-size: 1em;
+  padding: 1em;
+  border: 0;
+  box-sizing: border-box;
+}
+
+</style>
+
+<body onLoad="initClock()">
+
+  <body onLoad="initClock()">
+
+  <div id="timedate">
+    <a id="mon">January</a>
+    <a id="d">1</a>,
+    <a id="y">0</a><br />
+    <a id="h">12</a> :
+    <a id="m">00</a>:
+    <a id="s">00</a>:
+    
+  </div>
+</table>
+
+
+<script>
+  // START CLOCK SCRIPT
+
+Number.prototype.pad = function(n) {
+  for (var r = this.toString(); r.length < n; r = 0 + r);
+  return r;
+};
+
+function updateClock() {
+  var now = new Date();
+  var 
+    sec = now.getSeconds(),
+    min = now.getMinutes(),
+    hou = now.getHours(),
+    mo = now.getMonth(),
+    dy = now.getDate(),
+    yr = now.getFullYear();
+  var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  var tags = ["mon", "d", "y", "h", "m", "s"],
+    corr = [months[mo], dy, yr, hou.pad(2), min.pad(2), sec.pad(2)];
+  for (var i = 0; i < tags.length; i++)
+    document.getElementById(tags[i]).firstChild.nodeValue = corr[i];
+}
+
+function initClock() {
+  updateClock();
+  window.setInterval("updateClock()", 1);
+}
+
+// END CLOCK SCRIPT
+
+var d = document;
+
+// not using this at the moment but might do later for graceful degradation...
+function supports_html5_storage() {
+  try {
+    return 'localStorage' in window && window['localStorage'] !== null;
+  } catch (e) {
+    return false;
+  }
+}
+
+d.addEventListener('DOMContentLoaded', function(){
+
+  var savedContent = localStorage.getItem("notepadcontent");
+  if(savedContent != null){
+    d.getElementById("notepad").value = savedContent;
+  }
+ 
+ 
+ d.getElementById("notepad").onkeyup = function(){
+  var data = d.getElementById("notepad").value;  localStorage.setItem("notepadcontent", data);
+  }
+});
+</script>
